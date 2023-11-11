@@ -1,4 +1,4 @@
-import singleton from './singleton.mjs';
+const singleton = require('./singleton.js');
 // Proxy 使用
 let validator = {
 	get: function (obj, prop) {

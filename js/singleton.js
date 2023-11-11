@@ -1,4 +1,4 @@
-export default function singleton(className) {
+function singleton(className) {
 	let ins;
 	let oldargs = [];
 	return new Proxy(className, {
@@ -18,3 +18,4 @@ export default function singleton(className) {
 		},
 	});
 }
+module.exports = singleton;

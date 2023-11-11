@@ -1,8 +1,5 @@
 const handlers = new Map();
-export default class Mitt {
-	all() {
-		return Object.keys(this.handlers);
-	}
+class Mitt {
 	//监听
 	on(event, handler) {
 		if (handlers.get(event)) {
@@ -11,7 +8,7 @@ export default class Mitt {
 			handlers.set(event, [handler]);
 		}
 	}
-	// 触发
+	// 触发时监听需要先注册，不然就无法触发
 	emit(event, ...args) {
 		// 处理 all监听事件
 		// console.log(handlers.get('*'), [...handlers.values()], '*****************');
@@ -19,6 +16,13 @@ export default class Mitt {
 		if (bindHandler) {
 			bindHandler.forEach((handler) => {
 				handler(...args);
+			});
+		}
+		// 处理 all监听事件
+		const allHandler = handlers.get('*');
+		if (allHandler) {
+			allHandler.forEach((handler) => {
+				handler(event, ...args);
 			});
 		}
 	}
@@ -31,3 +35,4 @@ export default class Mitt {
 		handlers.clear();
 	}
 }
+module.exports = { Mitt, handlers };

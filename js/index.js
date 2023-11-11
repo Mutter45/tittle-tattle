@@ -1,5 +1,11 @@
-import Mitt from './mitt.mjs';
+const { Mitt } = require('./mitt.js');
 const mitt = new Mitt();
+const handler1 = () => {
+	console.log('handler1');
+};
+const handler2 = () => {
+	console.log('handler1');
+};
 const obj = {
 	age: 23,
 	name: 'lisa',
@@ -27,13 +33,11 @@ mitt.off(
 		console.log('desc', this);
 	}.bind(obj)
 );
+mitt.on('first', handler1);
+mitt.on('first', handler2);
+mitt.on('*', (event, ...args) => {
+	console.log('all', event, args);
+});
 mitt.emit('desc', 'ceshi', 23);
-
-mitt.on('first', () => {
-	console.log('first');
-});
-mitt.on('second', () => {
-	console.log('second');
-});
 mitt.emit('first', 'ceshi', 23);
-mitt.on('*', () => {});
+mitt.emit('first', 'ceshi', 24);
