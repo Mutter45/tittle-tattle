@@ -1,4 +1,4 @@
-const { Mitt, handlers } = require('./mitt.js');
+const Mitt = require('./mitt.js');
 describe('Mitt', () => {
 	let mitt;
 
@@ -6,7 +6,16 @@ describe('Mitt', () => {
 		mitt = new Mitt();
 	});
 	afterEach(() => {
-		Mitt.clear();
+		mitt.clear();
+	});
+	describe('get handlers', () => {
+		it('get all handlers', () => {
+			const handler = jest.fn();
+			const handler1 = jest.fn();
+			mitt.on('event', handler);
+			mitt.on('event1', handler1);
+			expect(mitt.handlers).toEqual({ event: [handler], event1: [handler1] });
+		});
 	});
 
 	describe('on', () => {
@@ -14,7 +23,7 @@ describe('Mitt', () => {
 			const handler = jest.fn();
 			mitt.on('event', handler);
 
-			expect(handlers.get('event')).toEqual([handler]);
+			expect(mitt.handlers['event']).toEqual([handler]);
 		});
 
 		it('should add the handler to the handlers object if event already exists', () => {
@@ -22,7 +31,7 @@ describe('Mitt', () => {
 			const handler2 = jest.fn();
 			mitt.on('event1', handler1);
 			mitt.on('event1', handler2);
-			expect(handlers.get('event1')).toEqual([handler1, handler2]);
+			expect(mitt.handlers['event1']).toEqual([handler1, handler2]);
 		});
 	});
 
@@ -62,7 +71,7 @@ describe('Mitt', () => {
 			mitt.on('event', handler);
 			mitt.off('event', handler);
 
-			expect(handlers.get('event')).toBeUndefined();
+			expect(mitt.handlers['event']).toBeUndefined();
 		});
 
 		it('should call the handler', () => {
@@ -83,9 +92,9 @@ describe('Mitt', () => {
 			const handler2 = jest.fn();
 			mitt.on('event1', handler1);
 			mitt.on('event2', handler2);
-			Mitt.clear();
+			mitt.clear();
 
-			expect(handlers.size).toBe(0);
+			expect(mitt.handlers).toEqual({});
 		});
 	});
 });
