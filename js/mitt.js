@@ -2,6 +2,13 @@ const singleton = require('./singleton.js');
 class Mitt {
 	// 定义为私有字段 防止通过实例进行更改
 	#handlers = new Map();
+	static instance;
+	constructor() {
+		if (!Mitt.instance) {
+			Mitt.instance = this;
+		}
+		return Mitt.instance;
+	}
 	//通过handlers获取收集的所有依赖
 	get handlers() {
 		// 将map结构转为普通对象
@@ -55,5 +62,4 @@ class Mitt {
 		this.#handlers.clear();
 	}
 }
-// 采用单例模式生成Mitt实例，确保依赖收集唯一
-module.exports = singleton(Mitt);
+module.exports = Mitt;

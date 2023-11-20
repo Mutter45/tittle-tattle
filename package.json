@@ -1,15 +1,16 @@
 {
-  "name": "tittle-tattle",
-  "version": "1.0.0",
-  "description": "",
-  "type": "command",
-  "scripts": {
-    "test": "jest"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "jest": "^29.7.0"
-  }
+	"name": "tittle-tattle",
+	"version": "1.0.0",
+	"description": "",
+	"type": "command",
+	"scripts": {
+		"test": "jest",
+		"start:ts": "nodemon ts/index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"jest": "^29.7.0"
+	}
 }
