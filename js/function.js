@@ -4,7 +4,7 @@
  * @param  {...any} args
  * @returns {*} 方法执行结果
  */
-Function.prototype.my_call = function (ctx, ...args) {
+exports.my_call = function (ctx, ...args) {
 	const context = ctx === null || undefined ? globalThis : Object(ctx);
 	const key = Symbol('fn'); //确保key的唯一性，防止和context中属性名冲突
 	// 参考文档(https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)
@@ -22,7 +22,7 @@ Function.prototype.my_call = function (ctx, ...args) {
  * @param  { Array } args
  * @returns {*} 方法执行结果
  */
-Function.prototype.my_apply = function (ctx, args = []) {
+exports.my_apply = function (ctx, args = []) {
 	const context = ctx === null || undefined ? globalThis : Object(ctx);
 	const key = Symbol('fn');
 	Object.defineProperty(context, key, {
@@ -37,7 +37,7 @@ Function.prototype.my_apply = function (ctx, args = []) {
  * @param  {...any} args
  * @returns {*} 更换this后的函数
  */
-Function.prototype.my_bind = function (ctx, ...args) {
+exports.my_bind = function (ctx, ...args) {
 	// bind函数为返回一个更改执行上下文的新函数
 	return (...restArgs) => this.my_apply(ctx, [...args, ...restArgs]);
 };
