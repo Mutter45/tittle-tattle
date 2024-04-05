@@ -1,4 +1,5 @@
 function removeFalsyValuesAndCamelCase(data) {
+	if (!(data instanceof Object)) return data;
 	const res = Object.keys(data).reduce(
 		(acc, key) => {
 			if (data[key]) {
@@ -10,5 +11,4 @@ function removeFalsyValuesAndCamelCase(data) {
 	);
 	return data instanceof Array ? res.filter(Boolean) : res;
 }
-
 module.exports = removeFalsyValuesAndCamelCase;

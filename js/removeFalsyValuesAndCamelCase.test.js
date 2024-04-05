@@ -1,5 +1,15 @@
 const removeFalsyValuesAndCamelCase = require('./removeFalsyValuesAndCamelCase');
 describe('removeFalsyValuesAndCamelCase', () => {
+	it('Common type should return self', () => {
+		const str = '1';
+		const str1 = null;
+		const str2 = false;
+		const str3 = undefined;
+		expect(removeFalsyValuesAndCamelCase(str)).toEqual(str);
+		expect(removeFalsyValuesAndCamelCase(str1)).toEqual(null);
+		expect(removeFalsyValuesAndCamelCase(str2)).toEqual(false);
+		expect(removeFalsyValuesAndCamelCase(str3)).toEqual(undefined);
+	});
 	it('should delete all false value', () => {
 		const obj = {
 			name: 'John',
