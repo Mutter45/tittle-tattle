@@ -2,10 +2,9 @@ type First<T extends any[]> = T extends [infer L, ...any[]] ? L : never;
 type Last<T extends any[]> = T extends [...any[], infer L] ? L : never;
 function compose<Fns extends Array<(...args: any[]) => any>>(...fns: Fns) {
 	return function <K extends Parameters<Last<Fns>>>(...args: K): ReturnType<First<Fns>> {
-		const start = fns.pop();
-		return fns.reduceRight((res, fn) => {
-			return fn(res);
-		}, start?.(...args));
+		return fns.reduceRight((params, fn) => {
+			return fn(params);
+		}, fns.pop()?.(...args));
 	};
 }
 
@@ -24,5 +23,5 @@ function string(x: number): string {
 const combinationFn = compose(string, power, add);
 
 // // 使用示例
-const result = combinationFn(5, 3); // 这里的 result 的类型会被推导为 number
+const result = combinationFn(5, 3);
 console.log(result);

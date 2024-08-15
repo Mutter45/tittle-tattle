@@ -2,7 +2,7 @@
 	"name": "tittle-tattle",
 	"version": "1.0.0",
 	"description": "",
-	"type": "commonjs",
+	"type": "module",
 	"scripts": {
 		"test": "jest",
 		"start:ts": "nodemon ts/index.js"

@@ -5,5 +5,9 @@
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"editor.formatOnSave": true
+	"editor.formatOnSave": true,
+	"sonarlint.connectedMode.project": {
+		"connectionId": "http-192-168-1-40-9005-",
+		"projectKey": "shyt_his-web_AYyfzHX24c0O63MBXbnH"
+	}
 }
