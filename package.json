@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"test": "jest",
-		"start:ts": "nodemon ts/index.js"
+		"formate": "prettier --write"
 	},
 	"keywords": [],
 	"author": "",

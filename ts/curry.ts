@@ -3,13 +3,13 @@
 // };
 function curry<T extends (...args: any) => any>(fn: T) {
 	return function curriedFn<K extends Array<any>>(...args: K) {
-		return args.length >= fn.length ? fn(...args) : (...moreArgs: any[]) => curriedFn(...args, ...moreArgs);
-	};
+		return args.length >= fn.length ? fn(...args) : (...moreArgs: any[]) => curriedFn(...args, ...moreArgs)
+	}
 }
 
 function addTest(x: number, y: number, z: number): number {
-	return x + y + z;
+	return x + y + z
 }
 
-const addCurry = curry(addTest);
-console.log(addCurry(1, 2));
+const addCurry = curry(addTest)
+console.log(addCurry(1, 2))

@@ -1,18 +1,18 @@
-const singleton = require('./singleton.js');
+const singleton = require('./singleton.js')
 class Mitt {
 	// 定义为私有字段 防止通过实例进行更改
-	#handlers = new Map();
-	static instance;
+	#handlers = new Map()
+	static instance
 	constructor() {
 		if (!Mitt.instance) {
-			Mitt.instance = this;
+			Mitt.instance = this
 		}
-		return Mitt.instance;
+		return Mitt.instance
 	}
 	//通过handlers获取收集的所有依赖
 	get handlers() {
 		// 将map结构转为普通对象
-		return Object.fromEntries(this.#handlers);
+		return Object.fromEntries(this.#handlers)
 	}
 	/**
 	 *
@@ -21,9 +21,9 @@ class Mitt {
 	 */
 	on(event, handler) {
 		if (this.#handlers.get(event)) {
-			this.#handlers.set(event, [...this.#handlers.get(event), handler]);
+			this.#handlers.set(event, [...this.#handlers.get(event), handler])
 		} else {
-			this.#handlers.set(event, [handler]);
+			this.#handlers.set(event, [handler])
 		}
 	}
 	/**
@@ -34,18 +34,18 @@ class Mitt {
 	// 触发时监听需要先注册，不然就无法触发
 	emit(event, ...args) {
 		// 处理监听事件
-		const bindHandler = this.#handlers.get(event);
+		const bindHandler = this.#handlers.get(event)
 		if (bindHandler) {
 			bindHandler.forEach((handler) => {
-				handler(...args);
-			});
+				handler(...args)
+			})
 		}
 		// 处理 all监听事件
-		const allHandler = this.#handlers.get('*');
+		const allHandler = this.#handlers.get('*')
 		if (allHandler) {
 			allHandler.forEach((handler) => {
-				handler(event, ...args);
-			});
+				handler(event, ...args)
+			})
 		}
 	}
 	/**
@@ -54,12 +54,12 @@ class Mitt {
 	 * @param { Function} handler 取消订阅事件处理函数
 	 */
 	off(event, handler) {
-		this.#handlers.delete(event);
-		handler();
+		this.#handlers.delete(event)
+		handler()
 	}
 	// 清除所有监听
 	clear() {
-		this.#handlers.clear();
+		this.#handlers.clear()
 	}
 }
-module.exports = Mitt;
+module.exports = Mitt
